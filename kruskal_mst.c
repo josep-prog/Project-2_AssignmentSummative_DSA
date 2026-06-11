@@ -32,16 +32,30 @@ int main() {
     char hubs[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G'};
     int hubCount = 7;
 
-    // Graph as adjacency matrix with costs (from figure1.png)
+    // Graph as adjacency matrix with costs (from graph.png)
     int graph[7][7] = {
-        {0, 11, 0, 0, 0, 0, 22},
-        {11, 0, 17, 0, 0, 0, 0},
-        {0, 17, 0, 22, 0, 10, 0},
-        {0, 0, 22, 0, 25, 0, 0},
-        {0, 0, 0, 25, 0, 6, 0},
-        {0, 0, 10, 0, 6, 0, 5},
-        {22, 0, 0, 0, 0, 5, 0},
+        {0, 6, 0, 0, 0, 0, 0},
+        {6, 0, 11, 5, 0, 0, 0},
+        {0, 11, 0, 17, 0, 0, 25},
+        {0, 5, 17, 0, 22, 22, 0},
+        {0, 0, 0, 22, 0, 10, 0},
+        {0, 0, 0, 22, 10, 0, 22},
+        {0, 0, 25, 0, 0, 22, 0},
     };
+
+    // Print the adjacency matrix
+    printf("Adjacency Matrix:\n");
+    printf("   ");
+    for (int i = 0; i < hubCount; i++)
+        printf("%4c", hubs[i]);
+    printf("\n");
+    for (int i = 0; i < hubCount; i++) {
+        printf("%2c ", hubs[i]);
+        for (int j = 0; j < hubCount; j++)
+            printf("%4d", graph[i][j]);
+        printf("\n");
+    }
+    printf("\n");
 
     // Build the edge list from the adjacency matrix
     struct Edge edges[100];
