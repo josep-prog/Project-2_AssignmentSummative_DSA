@@ -20,17 +20,25 @@ void printPath(char prev[], int node) {
 }
 
 int main() {
+    // Bank branch network (Branch A-J). Graph is undirected,
+    // so each connection is listed in both directions.
     struct Edge edges[] = {
-        {'A', 'B', 5},
-        {'A', 'C', 3},
-        {'B', 'D', 2},
-        {'C', 'B', 1},
-        {'C', 'D', 4},
-        {'D', 'E', -2},
-        {'E', 'B', 1},
+        {'A', 'B', 4},  {'B', 'A', 4},
+        {'A', 'D', 16}, {'D', 'A', 16},
+        {'B', 'C', 6},  {'C', 'B', 6},
+        {'B', 'D', 6},  {'D', 'B', 6},
+        {'B', 'J', 7},  {'J', 'B', 7},
+        {'C', 'G', 9},  {'G', 'C', 9},
+        {'D', 'E', 7},  {'E', 'D', 7},
+        {'D', 'J', 3},  {'J', 'D', 3},
+        {'E', 'F', 10}, {'F', 'E', 10},
+        {'E', 'I', 2},  {'I', 'E', 2},
+        {'F', 'I', 10}, {'I', 'F', 10},
+        {'F', 'J', 3},  {'J', 'F', 3},
+        {'G', 'H', 13}, {'H', 'G', 13},
     };
-    int edgeCount = 7;
-    int nodeCount = 5;
+    int edgeCount = 26;
+    int nodeCount = 10;
     int dist[MAX_NODES];
     char prev[MAX_NODES];  // to store path
     
@@ -64,10 +72,11 @@ int main() {
         
         if (dist[u] != INT_MAX && dist[u] + w < dist[v]) {
             hasNegativeCycle = 1;
+            printf("Unstable route detected via branch %c -> %c\n", edges[j].from, edges[j].to);
             break;
         }
     }
-    
+
     // Step 4: Print results
     if (hasNegativeCycle) {
         printf("WARNING: Negative-weight cycle detected!\n");
